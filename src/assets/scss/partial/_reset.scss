@@ -1,0 +1,13 @@
+//reset
+a {
+    text-decoration: none;
+    &:active {
+        text-decoration: none;
+    }
+    &:hover {
+        text-decoration: none;
+    }
+    &:link {
+        text-decoration: none;
+    }
+}

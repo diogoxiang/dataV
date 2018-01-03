@@ -1,0 +1,10 @@
+{
+  "presets": ["env"],
+  "plugins": ["transform-runtime", "transform-vue-jsx", "syntax-jsx"],
+  "comments": false,
+  "env": {
+    "production": {
+      "plugins": ["transform-remove-console", "transform-remove-debugger"]
+    }
+  }
+}
