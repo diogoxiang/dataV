@@ -9,6 +9,9 @@ import store from "./store";
 // 全局SCSS
 import "./assets/scss/app.scss";
 
+// 阿里G2图表数据
+// import G2 from "@antv/g2";
+
 // 第三方 时间库
 // import Moment from 'vue-moment'; // 时间格试化库
 // Vue.use(Moment)
