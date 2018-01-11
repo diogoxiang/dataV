@@ -23,20 +23,20 @@
 </template>
 
 <script>
-import api from '../server/api'
-import DioDialog from './common/dialog'
+import api from "../server/api";
+import DioDialog from "./common/dialog";
 
-import * as types from '../store/mutation-types'
+import * as types from "../store/mutation-types";
 
-import util from './util'
+import util from "./util";
 
 // echarts global
-import * as echarts from 'echarts'
-import * as chinaGeo from '../../static/echarts/china'
+import * as echarts from "echarts";
+import * as chinaGeo from "../../static/echarts/china";
 
 // 随机数据
 function randomData() {
-  return Math.round(Math.random() * 1000)
+  return Math.round(Math.random() * 1000);
 }
 
 var geoCoordMap = {
@@ -74,10 +74,10 @@ var geoCoordMap = {
   台湾: [121.36464, 25.248948],
   香港: [114.1529, 22.542716],
   澳门: [113.417008, 22.337477]
-}
+};
 
 export default {
-  name: 'Home',
+  name: "Home",
   components: {
     DioDialog
   },
@@ -85,11 +85,11 @@ export default {
     return {
       stime: new Date(),
       config: {}
-    }
+    };
   },
   mounted() {
     // this.$store.commit(types.TITLE, 'Login');
-    console.log(geoCoordMap)
+    console.log(geoCoordMap);
     // 饼状图
     // let mainPie = echarts.init(document.getElementById("main_pie"));
 
@@ -101,21 +101,21 @@ export default {
     //   }
     // });
     // 地图
-    let mainGeo = echarts.init(document.getElementById('main_geo'))
-    mainGeo.showLoading()
+    let mainGeo = echarts.init(document.getElementById("main_geo"));
+    mainGeo.showLoading();
     let geoOption = {
       title: {
-        text: '扫码量布图',
-        subtext: '模拟数据',
-        left: 'center',
+        text: "扫码量布图",
+        subtext: "模拟数据",
+        left: "center",
         textStyle: {
-          color: '#fff'
+          color: "#fff"
         }
       },
-      backgroundColor: '#010b43',
-      layoutCenter: ['30%', '30%'],
+      backgroundColor: "#010b43",
+      layoutCenter: ["30%", "30%"],
       tooltip: {
-        trigger: 'item'
+        trigger: "item"
       },
       // 数据
       // legend: {
@@ -126,30 +126,30 @@ export default {
       visualMap: {
         min: 0,
         max: 2500,
-        left: 'left',
-        top: 'bottom',
-        text: ['高', '低'], // 文本，默认为数值文本
+        left: "left",
+        top: "bottom",
+        text: ["高", "低"], // 文本，默认为数值文本
         calculable: true,
         textStyle: {
-          color: '#fff'
+          color: "#fff"
         }
       },
       geo: {
-        type: 'map',
-        map: 'china',
+        type: "map",
+        map: "china",
         regions: [
-          { name: '南海诸岛', value: 0, itemStyle: { normal: { opacity: 0, label: { show: false } } } }
+          { name: "南海诸岛", value: 0, itemStyle: { normal: { opacity: 0, label: { show: false } } } }
         ],
         label: {
           normal: {
             textStyle: {
-              color: '#fff'
+              color: "#fff"
             },
             show: false
           },
           emphasis: {
             textStyle: {
-              color: '#C6A300'
+              color: "#C6A300"
             },
             show: false
           }
@@ -157,21 +157,21 @@ export default {
         itemStyle: {
           normal: {
             show: false,
-            areaColor: 'rgba(0,0,0,0)',
-            borderColor: '#126cc4',
+            areaColor: "rgba(0,0,0,0)",
+            borderColor: "#126cc4",
             borderWidth: 1.3
           },
           emphasis: {
             show: false,
-            areaColor: 'rgba(233,0,200,0.3)'
+            areaColor: "rgba(233,0,200,0.3)"
           }
         }
       },
       series: [
         {
-          name: '扫码量',
-          type: 'map',
-          mapType: 'china',
+          name: "扫码量",
+          type: "map",
+          mapType: "china",
           roam: false,
           label: {
             normal: {
@@ -183,60 +183,60 @@ export default {
           },
           data: [
             {
-              name: '南海诸岛',
+              name: "南海诸岛",
               value: 0,
               itemStyle: {
                 normal: { opacity: 0, label: { show: false } }
               }
             },
-            { name: '北京', value: randomData() },
-            { name: '天津', value: randomData() },
-            { name: '上海', value: randomData() },
-            { name: '重庆', value: randomData() },
-            { name: '河北', value: randomData() },
-            { name: '河南', value: randomData() },
-            { name: '云南', value: randomData() },
-            { name: '辽宁', value: randomData() },
-            { name: '黑龙江', value: randomData() },
-            { name: '湖南', value: randomData() },
-            { name: '安徽', value: randomData() },
-            { name: '山东', value: randomData() },
-            { name: '新疆', value: randomData() },
-            { name: '江苏', value: randomData() },
-            { name: '浙江', value: randomData() },
-            { name: '江西', value: randomData() },
-            { name: '湖北', value: randomData() },
-            { name: '广西', value: randomData() },
-            { name: '甘肃', value: randomData() },
-            { name: '山西', value: randomData() },
-            { name: '内蒙古', value: randomData() },
-            { name: '陕西', value: randomData() },
-            { name: '吉林', value: randomData() },
-            { name: '福建', value: randomData() },
-            { name: '贵州', value: randomData() },
-            { name: '广东', value: randomData() },
-            { name: '青海', value: randomData() },
-            { name: '西藏', value: randomData() },
-            { name: '四川', value: randomData() },
-            { name: '宁夏', value: randomData() },
-            { name: '海南', value: randomData() },
-            { name: '台湾', value: randomData() },
-            { name: '香港', value: randomData() },
-            { name: '澳门', value: randomData() }
+            { name: "北京", value: randomData() },
+            { name: "天津", value: randomData() },
+            { name: "上海", value: randomData() },
+            { name: "重庆", value: randomData() },
+            { name: "河北", value: randomData() },
+            { name: "河南", value: randomData() },
+            { name: "云南", value: randomData() },
+            { name: "辽宁", value: randomData() },
+            { name: "黑龙江", value: randomData() },
+            { name: "湖南", value: randomData() },
+            { name: "安徽", value: randomData() },
+            { name: "山东", value: randomData() },
+            { name: "新疆", value: randomData() },
+            { name: "江苏", value: randomData() },
+            { name: "浙江", value: randomData() },
+            { name: "江西", value: randomData() },
+            { name: "湖北", value: randomData() },
+            { name: "广西", value: randomData() },
+            { name: "甘肃", value: randomData() },
+            { name: "山西", value: randomData() },
+            { name: "内蒙古", value: randomData() },
+            { name: "陕西", value: randomData() },
+            { name: "吉林", value: randomData() },
+            { name: "福建", value: randomData() },
+            { name: "贵州", value: randomData() },
+            { name: "广东", value: randomData() },
+            { name: "青海", value: randomData() },
+            { name: "西藏", value: randomData() },
+            { name: "四川", value: randomData() },
+            { name: "宁夏", value: randomData() },
+            { name: "海南", value: randomData() },
+            { name: "台湾", value: randomData() },
+            { name: "香港", value: randomData() },
+            { name: "澳门", value: randomData() }
           ]
         }
       ]
-    }
+    };
 
     setTimeout(() => {
-      mainGeo.setOption(geoOption)
-      mainGeo.hideLoading()
+      mainGeo.setOption(geoOption);
+      mainGeo.hideLoading();
       // reload()
-    }, 2000)
+    }, 2000);
 
     function reload() {
       setInterval(function() {
-        console.log('object')
+        console.log("object");
         // mainGeo.dispatchAction({
         //   type: 'selectDataRange',
         //   // 选取 20 到 40 的值范围
@@ -245,9 +245,9 @@ export default {
         let newOption = {
           series: [
             {
-              name: '扫码量',
-              type: 'map',
-              mapType: 'china',
+              name: "扫码量",
+              type: "map",
+              mapType: "china",
               roam: false,
               label: {
                 normal: {
@@ -259,52 +259,52 @@ export default {
               },
               data: [
                 {
-                  name: '南海诸岛',
+                  name: "南海诸岛",
                   value: 0,
                   itemStyle: {
                     normal: { opacity: 0, label: { show: false } }
                   }
                 },
-                { name: '北京', value: randomData() },
-                { name: '天津', value: randomData() },
-                { name: '上海', value: randomData() },
-                { name: '重庆', value: randomData() },
-                { name: '河北', value: randomData() },
-                { name: '河南', value: randomData() },
-                { name: '云南', value: randomData() },
-                { name: '辽宁', value: randomData() },
-                { name: '黑龙江', value: randomData() },
-                { name: '湖南', value: randomData() },
-                { name: '安徽', value: randomData() },
-                { name: '山东', value: randomData() },
-                { name: '新疆', value: randomData() },
-                { name: '江苏', value: randomData() },
-                { name: '浙江', value: randomData() },
-                { name: '江西', value: randomData() },
-                { name: '湖北', value: randomData() },
-                { name: '广西', value: randomData() },
-                { name: '甘肃', value: randomData() },
-                { name: '山西', value: randomData() },
-                { name: '内蒙古', value: randomData() },
-                { name: '陕西', value: randomData() },
-                { name: '吉林', value: randomData() },
-                { name: '福建', value: randomData() },
-                { name: '贵州', value: randomData() },
-                { name: '广东', value: randomData() },
-                { name: '青海', value: randomData() },
-                { name: '西藏', value: randomData() },
-                { name: '四川', value: randomData() },
-                { name: '宁夏', value: randomData() },
-                { name: '海南', value: randomData() },
-                { name: '台湾', value: randomData() },
-                { name: '香港', value: randomData() },
-                { name: '澳门', value: randomData() }
+                { name: "北京", value: randomData() },
+                { name: "天津", value: randomData() },
+                { name: "上海", value: randomData() },
+                { name: "重庆", value: randomData() },
+                { name: "河北", value: randomData() },
+                { name: "河南", value: randomData() },
+                { name: "云南", value: randomData() },
+                { name: "辽宁", value: randomData() },
+                { name: "黑龙江", value: randomData() },
+                { name: "湖南", value: randomData() },
+                { name: "安徽", value: randomData() },
+                { name: "山东", value: randomData() },
+                { name: "新疆", value: randomData() },
+                { name: "江苏", value: randomData() },
+                { name: "浙江", value: randomData() },
+                { name: "江西", value: randomData() },
+                { name: "湖北", value: randomData() },
+                { name: "广西", value: randomData() },
+                { name: "甘肃", value: randomData() },
+                { name: "山西", value: randomData() },
+                { name: "内蒙古", value: randomData() },
+                { name: "陕西", value: randomData() },
+                { name: "吉林", value: randomData() },
+                { name: "福建", value: randomData() },
+                { name: "贵州", value: randomData() },
+                { name: "广东", value: randomData() },
+                { name: "青海", value: randomData() },
+                { name: "西藏", value: randomData() },
+                { name: "四川", value: randomData() },
+                { name: "宁夏", value: randomData() },
+                { name: "海南", value: randomData() },
+                { name: "台湾", value: randomData() },
+                { name: "香港", value: randomData() },
+                { name: "澳门", value: randomData() }
               ]
             }
           ]
-        }
-        mainGeo.setOption(newOption)
-      }, 2000)
+        };
+        mainGeo.setOption(newOption);
+      }, 2000);
     }
 
     //  ---
@@ -313,11 +313,11 @@ export default {
     doDialog() {
       this.config = {
         visible: true,
-        text: '确定要兑换吗？',
-        sureText: '确定',
+        text: "确定要兑换吗？",
+        sureText: "确定",
         cancelText: undefined,
         callback: () => {
-          console.log('object')
+          console.log("object");
           // let a = this.deleteUserInfo()
           // if (a) {
           //   this.setTip({
@@ -325,16 +325,16 @@ export default {
           //   })
           //   this.setMenu(false)
         }
-      }
+      };
     },
     showLoading() {
-      console.log('dd')
+      console.log("dd");
       // console.log(this.$store);
 
       // this.$store.commit(types.SET_LOADING, true);
     },
     showToast() {
-      console.log('dd')
+      console.log("dd");
       // console.log(this.$store);
 
       // this.$store.commit(types.SET_TIP, { text: '加载成功' });
@@ -342,10 +342,10 @@ export default {
       // this.$store.dispatch("setTip", { text: "加载成功" });
     },
     sendAjax() {
-      console.log('object')
+      console.log("object");
       // this.$store.dispatch('setLoading', 'true')
 
-      console.log(this.$store)
+      console.log(this.$store);
       this.axios
         .get(api.getlist, {
           params: {
@@ -353,11 +353,11 @@ export default {
           }
         })
         .then(response => {
-          this.list = response.data
-        })
+          this.list = response.data;
+        });
     }
   }
-}
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

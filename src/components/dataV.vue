@@ -9,11 +9,11 @@
 </template>
 
 <script>
-import IEcharts from '../util/echarts/full'
-const symbolSize = 20
-const data = [[15, 0], [-50, 10], [-56.5, 20], [-46.5, 30], [-22.1, 40]]
+import IEcharts from "../util/echarts/full";
+const symbolSize = 20;
+const data = [[15, 0], [-50, 10], [-56.5, 20], [-46.5, 30], [-22.1, 40]];
 export default {
-  name: 'Demo01',
+  name: "Demo01",
   components: {
     IEcharts
   },
@@ -24,106 +24,106 @@ export default {
       echarts: null,
       option: {
         title: {
-          text: 'Try Dragging these Points'
+          text: "Try Dragging these Points"
         },
         tooltip: {
-          triggerOn: 'none',
+          triggerOn: "none",
           formatter: function(params) {
-            return 'X: ' + params.data[0].toFixed(2) + '<br>Y: ' + params.data[1].toFixed(2)
+            return "X: " + params.data[0].toFixed(2) + "<br>Y: " + params.data[1].toFixed(2);
           }
         },
         grid: {},
         xAxis: {
           min: -100,
           max: 80,
-          type: 'value',
+          type: "value",
           axisLine: { onZero: false }
         },
         yAxis: {
           min: -30,
           max: 60,
-          type: 'value',
+          type: "value",
           axisLine: { onZero: false }
         },
         dataZoom: [
           {
-            type: 'slider',
+            type: "slider",
             xAxisIndex: 0,
-            filterMode: 'empty'
+            filterMode: "empty"
           },
           {
-            type: 'slider',
+            type: "slider",
             yAxisIndex: 0,
-            filterMode: 'empty'
+            filterMode: "empty"
           },
           {
-            type: 'inside',
+            type: "inside",
             xAxisIndex: 0,
-            filterMode: 'empty'
+            filterMode: "empty"
           },
           {
-            type: 'inside',
+            type: "inside",
             yAxisIndex: 0,
-            filterMode: 'empty'
+            filterMode: "empty"
           }
         ],
         series: [
           {
-            id: 'a',
-            type: 'line',
+            id: "a",
+            type: "line",
             smooth: true,
             symbolSize: symbolSize,
             data: data
           }
         ]
       }
-    }
+    };
   },
   methods: {
     onReady(instance, echarts) {
-      const that = this
-      that.ins = instance
-      that.echarts = echarts
+      const that = this;
+      that.ins = instance;
+      that.echarts = echarts;
       const updatePosition = function() {
         that.ins.setOption({
           graphic: that.echarts.util.map(data, function(item, dataIndex) {
             return {
-              position: that.ins.convertToPixel('grid', item)
-            }
+              position: that.ins.convertToPixel("grid", item)
+            };
           })
-        })
-      }
+        });
+      };
       const showTooltip = function(dataIndex) {
         that.ins.dispatchAction({
-          type: 'showTip',
+          type: "showTip",
           seriesIndex: 0,
           dataIndex: dataIndex
-        })
-      }
+        });
+      };
       const hideTooltip = function(dataIndex) {
         that.ins.dispatchAction({
-          type: 'hideTip'
-        })
-      }
+          type: "hideTip"
+        });
+      };
       const onPointDragging = function(dataIndex, dx, dy) {
-        data[dataIndex] = that.ins.convertFromPixel('grid', this.position)
+        data[dataIndex] = that.ins.convertFromPixel("grid", this.position);
         // Update data
         that.ins.setOption({
           series: [
             {
-              id: 'a',
+              id: "a",
               data: data
             }
           ]
-        })
-      }
+        });
+      };
       setTimeout(function() {
         // Add shadow circles (which is not visible) to enable drag.
         that.ins.setOption({
           graphic: that.echarts.util.map(data, function(item, dataIndex) {
             return {
-              type: 'circle',
-              position: that.ins.convertToPixel('grid', item),
+              type: "circle",
+              position: that.ins.convertToPixel("grid", item),
               shape: {
                 cx: 0,
                 cy: 0,
@@ -135,15 +135,15 @@ export default {
               onmousemove: that.echarts.util.curry(showTooltip, dataIndex),
               onmouseout: that.echarts.util.curry(hideTooltip, dataIndex),
               z: 100
-            }
+            };
           })
-        })
-      }, 0)
-      window.addEventListener('resize', updatePosition)
-      that.ins.on('dataZoom', updatePosition)
+        });
+      }, 0);
+      window.addEventListener("resize", updatePosition);
+      that.ins.on("dataZoom", updatePosition);
     }
   }
-}
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

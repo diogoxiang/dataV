@@ -17,7 +17,7 @@ module.exports = {
   href: "localhost",
   // port: 8080,
   // 是否开启代理, 类似  localhost ==> proxy.target
-  isProxy: true,
+  isProxy: false,
   // 请求 proxy 代理
   proxy: {
     "/": {
