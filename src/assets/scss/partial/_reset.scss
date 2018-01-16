@@ -11,3 +11,23 @@ a {
         text-decoration: none;
     }
 }
+
+* {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    vertical-align: baseline;
+}
+
+.fn-left {
+    text-align: left
+}
+
+.fn-right {
+    text-align: right
+}
+
+.fn-center {
+    text-align: center
+}

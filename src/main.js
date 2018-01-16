@@ -53,7 +53,7 @@ Vue.prototype.axios = axios;
 // Vue.use(VueResource)
 
 // 自定义过滤器
-import filter from "./components/util/filter";
+import filter from "./util/filter";
 Vue.use(filter);
 
 Vue.config.productionTip = false;

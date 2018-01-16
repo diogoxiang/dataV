@@ -13,18 +13,17 @@
 </style>
 
 <script>
-import Util from '../util'
 export default {
-    name: 'dio-loading',
-    data() {
-        return {
-            // vshow: 1
-        }
-    },
-    computed: {
-        vshow() {
-            return this.$store.state.docState.loadingState
-        }
+  name: "dio-loading",
+  data() {
+    return {
+      // vshow: 1
+    };
+  },
+  computed: {
+    vshow() {
+      return this.$store.state.docState.loadingState;
     }
-}
+  }
+};
 </script>

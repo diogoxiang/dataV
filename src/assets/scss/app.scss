@@ -1,7 +1,10 @@
 @charset "UTF-8";
 @import "partial/variables",
-"partial/reset";
+"partial/reset",
+"partial/_mixin";
 // Animate
 @import "common/_animate";
 // icon
-@import "common/_icon.scss";
+@import "common/_icon";
+// module
+@import "module/imap";

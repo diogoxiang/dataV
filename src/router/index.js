@@ -47,19 +47,6 @@ const routes = [
     ]
   },
   {
-    path: "/fromval",
-    name: "Fromval",
-    meta: {
-      requireAuth: true
-    },
-    component: resolve => require(["@/components/Fromval.vue"], resolve)
-  },
-  {
-    path: "/login",
-    name: "Login",
-    component: resolve => require(["@/components/Login.vue"], resolve)
-  },
-  {
     path: "*", //当匹配不到的时候.则返回 "/"
     redirect: "/"
   }

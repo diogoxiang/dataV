@@ -1,17 +1,22 @@
 // Color
-$color-bg:#FEFEFE;
-$s-color-bg: #FFF;
+$color-bg: #fefefe;
+$s-color-bg: #fff;
 $color-font: #323232;
-$color-font-white: #FFF;
+$color-font-white: #fff;
 $color-highlight: #000;
 $s-white: #dadada;
-$color-hover: #B2B2B2;
-$color-border: #C2C2C2;
+$color-hover: #b2b2b2;
+$color-border: #c2c2c2;
 $bg-deep: #333333;
 $color-green: rgba(128, 189, 1, 1);
-$color-background-deep: #EDEDED;
-$color-background-shallow: #EDEDED+10;
-// Font
+$color-background-deep: #ededed;
+$color-background-shallow: #ededed+10;
+// color
+$color-yellow: #f1e531;
+$color-yellow01: #ffb300; // Font
+$color-blue:#9de9ff;
+// font 
+$browser-default-font-size: 16px !default;
 $size-font: (14/75)rem;
 $size-text: (24/75)rem;
 $sp-size: (26/75)rem;
@@ -37,4 +42,4 @@ $ct-width: 9.8rem;
 $item-mg: (10/75)rem auto;
 $item-shadow: 0 1px 10px color-hover;
 // -radius
-$br-radius:0.5rem;
+$br-radius: 0.5rem;

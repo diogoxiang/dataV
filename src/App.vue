@@ -1,9 +1,9 @@
 <template>
-  <div id="app">
+  <section id="app" class="container is-fluid">
     <router-view></router-view>
     <dio-tip></dio-tip>
     <loading></loading>
-  </div>
+  </section>
 </template>
 
 <script>
@@ -31,7 +31,8 @@ body {
 }
 
 body {
-  background: rgb(247, 247, 247);
+  // background: #101535;
+  background: url("./assets/img/bg_01.png") repeat;
 }
 
 #app {
@@ -40,8 +41,8 @@ body {
   -moz-osx-font-smoothing: grayscale;
   color: #cccccc;
   height: 100%;
-  // background: url('./assets/img/bg.jpg');
-  background-size: 100% 100%;
+
+  // background-size: 100% 100%;
 }
 
 .container {

@@ -1,0 +1,184 @@
+@import "partial/variables",
+"partial/reset",
+"partial/_mixin";
+// common
+.mt5 {
+    margin-top: pxTorem(5px);
+}
+
+.mt20 {
+    margin-top: pxTorem(20px);
+}
+
+.pl0 {
+    padding-left: 0;
+}
+
+.pt0 {
+    padding-top: 0;
+}
+
+.pt20 {
+    padding-top: 30px;
+}
+
+.pr0 {
+    padding-right: 0;
+}
+
+.mgnone {
+    margin: 0;
+}
+
+.color-yellow1 {
+    color: $color-yellow01;
+}
+
+.color-yellow {
+    color: $color-yellow;
+}
+
+.color-blue {
+    color: $color-blue;
+}
+
+// page
+.mainTop {
+    position: absolute;
+    height: pxTorem(94px);
+    background: url("./../img/bg_top.png") no-repeat; // background-size: none 80%;
+    text-align: center; // background-size: 50% 100%;
+    background-position: top 30%;
+    background-position-x: 51.5%;
+    width: 100%;
+    background-size: 42% 96%;
+    .headtip {
+        line-height: pxTorem(80px);
+        font-size: pxTorem(32px);
+        color: #fff;
+    }
+    z-index: 1;
+}
+
+.imapContainer {
+    position: relative; // height: 100%; // border: 1px solid #ffffff
+    height: 100%; // padding: 40px auto;
+    margin-top: 10px;
+}
+
+.imapDiv {
+    position: relative;
+    z-index: 2; //   margin-top: calc(100% - 80px);
+    height: 100%; //   border: 1px solid #0f34a9;
+    overflow: hidden;
+}
+
+.lineDiv {
+    //   border: 1px solid #0f34a9;
+}
+
+// part 1
+.txtTip {
+    // float: right;
+    background: url("./../img/txt_tip.png") center right no-repeat;
+    width: 100%;
+    line-height: pxTorem(36px);
+    height: pxTorem(36px);
+    text-align: right;
+    padding-right: pxTorem(16px);
+    color: $color-yellow;
+}
+
+.leftControl {
+    overflow: hidden;
+    .h60 {
+        height: 60%;
+    }
+    .h40 {
+        height: 40%;
+    }
+    .leftUp {
+        background: url("./../img/line_left_up.png") left bottom no-repeat;
+        background-size: 100% 94.5%;
+    }
+    .leftDown {
+        background: url("./../img/line_left.png") top left no-repeat;
+        background-size: 100% 100%;
+    }
+    .leftContent {
+        padding: pxTorem(32px);
+    }
+    .leftContent2 {
+        padding: pxTorem(20px);
+        height: 100%;
+        overflow: hidden;
+    }
+    .txtContent {
+        height: calc(100% - 36px); // background: #ffffff;
+    }
+}
+
+.rightControl {
+    overflow: hidden;
+    .h70 {
+        height: 70%;
+        margin-bottom: 0px;
+    }
+    .h30 {
+        height: 30%;
+    }
+    .rightUp {
+        background: url("./../img/line_right.png") bottom left no-repeat;
+        background-size: 100% 95.5%;
+    }
+    .chinaMapDiv {
+        background: url("./../img/line_center.png") top left no-repeat;
+        background-position: left bottom;
+        background-size: 99% 95.5%;
+    }
+    .footDiv {
+        background: url("./../img/line_foot.png") top left no-repeat;
+        background-size: 100% 100%;
+    }
+    .footContent {
+        position: relative;
+        padding: pxTorem(20px);
+        height: 100%;
+        overflow: hidden;
+        .txtTip {
+            width: 40%;
+            background: url("./../img/txt_tip01.png") center right no-repeat;
+            position: absolute;
+            z-index: 1;
+            right: pxTorem(20px);
+        }
+    }
+    .footTxtContent {
+        // border: 1px solid #ffffff;
+        height: 100%;
+        position: relative;
+        z-index: 3
+    }
+    .rightContent {
+        padding: pxTorem(20px);
+        height: 100%;
+    }
+    .rightPie {
+        padding: pxTorem(10px);
+        height: calc(100% - 100px * 2 - 20px); // border: 1px solid #ffffff;
+    }
+}
+
+.countDiv {
+    border: 1px solid #11b8a2;
+    height: pxTorem(100px);
+    padding: pxTorem(20px) 0;
+    .numberDiv {
+        width: 100%;
+        font-size: pxTorem(35px);
+        line-height: pxTorem(35px);
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+}

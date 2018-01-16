@@ -1,0 +1,14 @@
+@import "partial/variables",
+"partial/reset";
+@function pxTorem($px) {
+    @return ($px / $browser-default-font-size) * 1rem;
+}
+
+@mixin brokenLine($n:1) {
+    text-overflow: -o-ellipsis-lastline;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: $n;
+    -webkit-box-orient: vertical;
+}
