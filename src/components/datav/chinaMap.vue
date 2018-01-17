@@ -54,11 +54,12 @@
       <div class="column is-8 is-clearfix rightControl pl0">
 
         <div class="lineDiv h70 columns mgnone">
+          <!-- 扫码区域 start -->
           <div class="column is-9 pl0 chinaMapDiv pt0">
-            
               扫码区域分布图
           </div>
-          <!-- 生码量 -->
+          <!-- 扫码区域 end -->
+          <!-- 生码量 start -->
           <div class="column is-3 pl0 rightUp pt20 pr0">
                <div class="rightContent">
 
@@ -125,6 +126,7 @@
 
 <script>
 import IEcharts from "../../util/echarts/full";
+import Util from "../../util";
 
 export default {
   name: "chinaMap",
@@ -147,7 +149,11 @@ export default {
     };
   },
   mounted() {
-    console.log(global);
+    // console.log(global);
+    // console.log(Util.isEmpty(""));
+    // console.log(Util.screen.listenKeyDown());
+    console.log(Util);
+    // console.log(Util.screen.listenResize());
   },
   methods: {
     // 生码量
@@ -203,7 +209,7 @@ export default {
       that.loading = false;
 
       const updataReady = function() {
-        console.log("object");
+        // console.log("object");
         that.ins.setOption({
           xAxis: {
             type: "category",
@@ -267,7 +273,7 @@ export default {
     },
     // 规格扫码量
     onFootReady(instance, echarts) {
-      console.log("object");
+      // console.log("object");
       const that = this;
       that.ins = instance;
       that.echarts = echarts;
@@ -275,7 +281,7 @@ export default {
       that.loading = false;
 
       const updataReady = function() {
-        console.log("object");
+        // console.log("object");
         that.ins.setOption({
           grid: {
             top: 20,
