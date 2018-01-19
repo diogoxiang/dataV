@@ -69,5 +69,6 @@ export const debounce = (fn, wait) => {
 export default {
   isEmpty,
   isNotEmpty,
-  throttle
+  throttle,
+  debounce
 };

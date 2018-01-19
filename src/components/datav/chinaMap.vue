@@ -1,5 +1,5 @@
 <template>
-  <div class="imapContainer">
+  <div class="imapContainer is-clearfix">
     <div class="mainTop">
         <span class="headtip">二维码运营数据中心</span>
     </div>
@@ -57,6 +57,14 @@
           <!-- 扫码区域 start -->
           <div class="column is-9 pl0 chinaMapDiv pt0">
               扫码区域分布图
+
+              <div class="imapContext">
+                地图
+                  
+
+              </div>
+
+
           </div>
           <!-- 扫码区域 end -->
           <!-- 生码量 start -->
@@ -292,7 +300,16 @@ export default {
           xAxis: {
             type: "category",
 
-            data: ["玉溪(硬)", "云烟", "红塔山", "玉溪(软)", "玉溪(透明)", "玉溪(田园)", "云烟(细支)", "云烟(细支)"],
+            data: [
+              "玉溪(硬)",
+              "云烟",
+              "红塔山",
+              "玉溪(软)",
+              "玉溪(透明)",
+              "玉溪(田园)",
+              "云烟(细支)",
+              "云烟(细支)"
+            ],
             axisLine: {
               lineStyle: {
                 color: "#9de9ff"
