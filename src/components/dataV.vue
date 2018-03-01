@@ -1,15 +1,27 @@
 <template>
   <div class="echarts">
     <h2><router-link to="/">Go Back</router-link></h2>
-    <IEcharts
+    <!-- <IEcharts
       :option="option"
       @ready="onReady"
-    />
+    /> -->
+
+ 
+    <!-- <div id="main_geo" style="width: 1000px;height:600px;"></div> -->
+
   </div>
 </template>
 
 <script>
 import IEcharts from "../util/echarts/full";
+
+import * as echarts from "echarts";
+
+// 随机数据
+function randomData() {
+  return Math.round(Math.random() * 1000);
+}
+
 const symbolSize = 20;
 const data = [[15, 0], [-50, 10], [-56.5, 20], [-46.5, 30], [-22.1, 40]];
 export default {
@@ -22,62 +34,223 @@ export default {
     return {
       ins: null,
       echarts: null,
-      option: {
-        title: {
-          text: "Try Dragging these Points"
-        },
-        tooltip: {
-          triggerOn: "none",
-          formatter: function(params) {
-            return "X: " + params.data[0].toFixed(2) + "<br>Y: " + params.data[1].toFixed(2);
-          }
-        },
-        grid: {},
-        xAxis: {
-          min: -100,
-          max: 80,
-          type: "value",
-          axisLine: { onZero: false }
-        },
-        yAxis: {
-          min: -30,
-          max: 60,
-          type: "value",
-          axisLine: { onZero: false }
-        },
-        dataZoom: [
-          {
-            type: "slider",
-            xAxisIndex: 0,
-            filterMode: "empty"
-          },
-          {
-            type: "slider",
-            yAxisIndex: 0,
-            filterMode: "empty"
-          },
-          {
-            type: "inside",
-            xAxisIndex: 0,
-            filterMode: "empty"
-          },
-          {
-            type: "inside",
-            yAxisIndex: 0,
-            filterMode: "empty"
-          }
-        ],
-        series: [
-          {
-            id: "a",
-            type: "line",
-            smooth: true,
-            symbolSize: symbolSize,
-            data: data
-          }
-        ]
-      }
+      loading: true,
+      option: {}
     };
+  },
+  mounted() {
+    console.log(this);
+
+    // let mainGeo = echarts.init(document.getElementById("main_geo"));
+    // mainGeo.showLoading();
+    // let geoOption = {
+    //   title: {
+    //     text: "扫码量布图",
+    //     subtext: "模拟数据",
+    //     left: "center",
+    //     textStyle: {
+    //       color: "#fff"
+    //     }
+    //   },
+    //   backgroundColor: "#010b43",
+    //   layoutCenter: ["30%", "30%"],
+    //   tooltip: {
+    //     trigger: "item"
+    //   },
+    //   // 数据
+    //   // legend: {
+    //   //   orient: 'vertical',
+    //   //   left: 'left',
+    //   //   data: ['扫码量']
+    //   // },
+    //   visualMap: {
+    //     min: 0,
+    //     max: 2500,
+    //     left: "left",
+    //     top: "bottom",
+    //     text: ["高", "低"], // 文本，默认为数值文本
+    //     calculable: false,
+    //     textStyle: {
+    //       color: "#fff"
+    //     },
+    //     show: false
+    //   },
+    //   geo: {
+    //     type: "map",
+    //     map: "china",
+    //     regions: [
+    //       {
+    //         name: "南海诸岛",
+    //         value: 0,
+    //         itemStyle: { normal: { opacity: 0, label: { show: false } } }
+    //       }
+    //     ],
+    //     label: {
+    //       normal: {
+    //         textStyle: {
+    //           color: "#fff"
+    //         },
+    //         show: false
+    //       },
+    //       emphasis: {
+    //         textStyle: {
+    //           color: "#C6A300"
+    //         },
+    //         show: false
+    //       }
+    //     },
+    //     itemStyle: {
+    //       normal: {
+    //         show: false,
+    //         areaColor: "rgba(0,0,0,0)",
+    //         borderColor: "#126cc4",
+    //         borderWidth: 1.3
+    //       },
+    //       emphasis: {
+    //         show: false,
+    //         areaColor: "rgba(233,0,200,0.3)"
+    //       }
+    //     }
+    //   },
+    //   series: [
+    //     {
+    //       name: "扫码量",
+    //       type: "map",
+    //       mapType: "china",
+    //       roam: false,
+    //       label: {
+    //         normal: {
+    //           show: false
+    //         },
+    //         emphasis: {
+    //           show: true
+    //         }
+    //       },
+    //       data: [
+    //         {
+    //           name: "南海诸岛",
+    //           value: 0,
+    //           itemStyle: {
+    //             normal: { opacity: 0, label: { show: false } }
+    //           }
+    //         },
+    //         { name: "北京", value: randomData() },
+    //         { name: "天津", value: randomData() },
+    //         { name: "上海", value: randomData() },
+    //         { name: "重庆", value: randomData() },
+    //         { name: "河北", value: randomData() },
+    //         { name: "河南", value: randomData() },
+    //         { name: "云南", value: randomData() },
+    //         { name: "辽宁", value: randomData() },
+    //         { name: "黑龙江", value: randomData() },
+    //         { name: "湖南", value: randomData() },
+    //         { name: "安徽", value: randomData() },
+    //         { name: "山东", value: randomData() },
+    //         { name: "新疆", value: randomData() },
+    //         { name: "江苏", value: randomData() },
+    //         { name: "浙江", value: randomData() },
+    //         { name: "江西", value: randomData() },
+    //         { name: "湖北", value: randomData() },
+    //         { name: "广西", value: randomData() },
+    //         { name: "甘肃", value: randomData() },
+    //         { name: "山西", value: randomData() },
+    //         { name: "内蒙古", value: randomData() },
+    //         { name: "陕西", value: randomData() },
+    //         { name: "吉林", value: randomData() },
+    //         { name: "福建", value: randomData() },
+    //         { name: "贵州", value: randomData() },
+    //         { name: "广东", value: randomData() },
+    //         { name: "青海", value: randomData() },
+    //         { name: "西藏", value: randomData() },
+    //         { name: "四川", value: randomData() },
+    //         { name: "宁夏", value: randomData() },
+    //         { name: "海南", value: randomData() },
+    //         { name: "台湾", value: randomData() },
+    //         { name: "香港", value: randomData() },
+    //         { name: "澳门", value: randomData() }
+    //       ]
+    //     }
+    //   ]
+    // };
+
+    // setTimeout(() => {
+    //   mainGeo.setOption(geoOption);
+    //   mainGeo.hideLoading();
+    //   // reload();
+    // }, 2000);
+
+    // function reload() {
+    //   setInterval(function() {
+    //     console.log("object");
+    //     // mainGeo.dispatchAction({
+    //     //   type: 'selectDataRange',
+    //     //   // 选取 20 到 40 的值范围
+    //     //   selected: [20, randomData()]
+    //     // })
+    //     let newOption = {
+    //       series: [
+    //         {
+    //           name: "扫码量",
+    //           type: "map",
+    //           mapType: "china",
+    //           roam: false,
+    //           label: {
+    //             normal: {
+    //               show: false
+    //             },
+    //             emphasis: {
+    //               show: true
+    //             }
+    //           },
+    //           data: [
+    //             {
+    //               name: "南海诸岛",
+    //               value: 0,
+    //               itemStyle: {
+    //                 normal: { opacity: 0, label: { show: false } }
+    //               }
+    //             },
+    //             { name: "北京", value: randomData() },
+    //             { name: "天津", value: randomData() },
+    //             { name: "上海", value: randomData() },
+    //             { name: "重庆", value: randomData() },
+    //             { name: "河北", value: randomData() },
+    //             { name: "河南", value: randomData() },
+    //             { name: "云南", value: randomData() },
+    //             { name: "辽宁", value: randomData() },
+    //             { name: "黑龙江", value: randomData() },
+    //             { name: "湖南", value: randomData() },
+    //             { name: "安徽", value: randomData() },
+    //             { name: "山东", value: randomData() },
+    //             { name: "新疆", value: randomData() },
+    //             { name: "江苏", value: randomData() },
+    //             { name: "浙江", value: randomData() },
+    //             { name: "江西", value: randomData() },
+    //             { name: "湖北", value: randomData() },
+    //             { name: "广西", value: randomData() },
+    //             { name: "甘肃", value: randomData() },
+    //             { name: "山西", value: randomData() },
+    //             { name: "内蒙古", value: randomData() },
+    //             { name: "陕西", value: randomData() },
+    //             { name: "吉林", value: randomData() },
+    //             { name: "福建", value: randomData() },
+    //             { name: "贵州", value: randomData() },
+    //             { name: "广东", value: randomData() },
+    //             { name: "青海", value: randomData() },
+    //             { name: "西藏", value: randomData() },
+    //             { name: "四川", value: randomData() },
+    //             { name: "宁夏", value: randomData() },
+    //             { name: "海南", value: randomData() },
+    //             { name: "台湾", value: randomData() },
+    //             { name: "香港", value: randomData() },
+    //             { name: "澳门", value: randomData() }
+    //           ]
+    //         }
+    //       ]
+    //     };
+    //     mainGeo.setOption(newOption);
+    //   }, 2000);
+    // }
   },
   methods: {
     onReady(instance, echarts) {

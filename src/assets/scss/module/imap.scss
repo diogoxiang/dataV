@@ -89,6 +89,19 @@
     color: $color-yellow;
 }
 
+.txtTipPart2 {
+    // float: right;
+    background: url("./../img/txt_tip.png") center left no-repeat;
+    width: 60%;
+    line-height: pxTorem(36px);
+    height: pxTorem(36px);
+    text-align: left; //   padding-right: pxTorem(16px);
+    padding-left: pxTorem(72px);
+    color: $color-yellow;
+    position: absolute;
+    z-index: 3;
+}
+
 .leftControl {
     overflow: hidden;
     .h60 {
@@ -185,11 +198,15 @@
 }
 
 .imapContext {
-    // margin-top: pxTorem(100px);
+    margin-top: pxTorem(10px);
     position: absolute;
     top: pxTorem(120px);
-    left: pxTorem(50px);
-    border: 1px solid #0f34a9;
+    left: pxTorem(50px); // border: 1px solid #0f34a9;
     width: 60%;
-    height: 70%;
+    height: 72%;
+}
+
+.imapChina {
+    height: 100%;
+    width: 100%;
 }

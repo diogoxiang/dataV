@@ -101,40 +101,40 @@ function wrapECharts(ECharts) {
     computed: {
       width: {
         cache: false,
-        get: function() {
+        get: function () {
           return this.instance.getWidth();
         }
       },
       height: {
         cache: false,
-        get: function() {
+        get: function () {
           return this.instance.getHeight();
         }
       },
       isDisposed: {
         cache: false,
-        get: function() {
+        get: function () {
           return this.instance.isDisposed();
         }
       }
     },
     watch: {
       loading: {
-        handler: function(loading) {
+        handler: function (loading) {
           const that = this;
           that.ifLoading(loading);
         },
         deep: false
       },
       option: {
-        handler: function(option) {
+        handler: function (option) {
           const that = this;
           that.instance.setOption(option, that.notMerge, that.lazyUpdate);
         },
         deep: true
       },
       group: {
-        handler: function(group) {
+        handler: function (group) {
           const that = this;
           that.instance.group = group;
         },
@@ -142,7 +142,7 @@ function wrapECharts(ECharts) {
       }
     },
     methods: {
-      initResize: function(dom) {
+      initResize: function (dom) {
         const that = this;
         if (that.resizable) {
           that.insResize =
@@ -156,7 +156,7 @@ function wrapECharts(ECharts) {
               leading: true,
               trailing: true
             });
-          that.insResize.listenTo(dom, function(element) {
+          that.insResize.listenTo(dom, function (element) {
             const width = element.offsetWidth;
             const height = element.offsetHeight;
             that.fnResize({
@@ -167,7 +167,7 @@ function wrapECharts(ECharts) {
           });
         }
       },
-      init: function() {
+      init: function () {
         const that = this;
         if (!that.instance) {
           const dom = that.$el;
@@ -178,7 +178,7 @@ function wrapECharts(ECharts) {
           instance.group = that.group;
           that.instance = instance;
           that.$emit("ready", instance, ECharts);
-          that.$nextTick(function() {
+          that.$nextTick(function () {
             that.ifLoading(that.loading);
             that.update();
             // that.watch();
@@ -187,10 +187,10 @@ function wrapECharts(ECharts) {
           });
         }
       },
-      bind: function() {
+      bind: function () {
         const that = this;
         const _on = function _on(name) {
-          that.instance.on(name, function(event) {
+          that.instance.on(name, function (event) {
             that.$emit(name, event, that.instance, ECharts);
           });
         };
@@ -210,7 +210,7 @@ function wrapECharts(ECharts) {
           }
         }
       },
-      unbind: function() {
+      unbind: function () {
         const that = this;
         if (that._events) {
           for (let e in that._events) {
@@ -227,33 +227,34 @@ function wrapECharts(ECharts) {
           }
         }
       },
-      ifLoading: function(loading) {
+      ifLoading: function (loading) {
         const that = this;
         if (loading) {
           that.showLoading();
+
         } else {
           that.hideLoading();
         }
       },
-      watch: function() {
+      watch: function () {
         const that = this;
-        that.watches.loading = that.$watch("loading", function(loading) {
+        that.watches.loading = that.$watch("loading", function (loading) {
           that.ifLoading(loading);
         });
         that.watches.option = that.$watch(
           "option",
-          function(option) {
+          function (option) {
             that.instance.setOption(option, that.notMerge, that.lazyUpdate);
           },
           {
             deep: true
           }
         );
-        that.watches.group = that.$watch("group", function(group) {
+        that.watches.group = that.$watch("group", function (group) {
           that.instance.group = group;
         });
       },
-      unwatch: function() {
+      unwatch: function () {
         const that = this;
         if (that.watches.loading) {
           that.watches.loading();
@@ -268,7 +269,7 @@ function wrapECharts(ECharts) {
           that.watches.group = null;
         }
       },
-      resize: function(opts) {
+      resize: function (opts) {
         const that = this;
         if (that.instance) {
           const width = opts && opts.width;
@@ -277,65 +278,65 @@ function wrapECharts(ECharts) {
           that.instance.resize(opts);
         }
       },
-      update: function() {
+      update: function () {
         const that = this;
         if (that.instance) {
           that.instance.setOption(that.option, that.notMerge, that.lazyUpdate);
           that.resize();
         }
       },
-      mergeOption: function(opts) {
+      mergeOption: function (opts) {
         const that = this;
         if (that.instance) {
           that.instance.setOption(opts, false, that.lazyUpdate);
           that.resize();
         }
       },
-      dispatchAction: function(payload) {
+      dispatchAction: function (payload) {
         const that = this;
         if (that.instance) {
           that.instance.dispatchAction(payload);
         }
       },
-      convertToPixel: function(finder, value) {
+      convertToPixel: function (finder, value) {
         const that = this;
         return that.instance.convertToPixel(finder, value);
       },
-      convertFromPixel: function(finder, value) {
+      convertFromPixel: function (finder, value) {
         const that = this;
         return that.instance.convertFromPixel(finder, value);
       },
-      containPixel: function(finder, value) {
+      containPixel: function (finder, value) {
         const that = this;
         return that.instance.containPixel(finder, value);
       },
-      showLoading: function() {
+      showLoading: function () {
         const that = this;
         if (that.instance) {
           that.instance.showLoading("default", that.loadingOpts);
         }
       },
-      hideLoading: function() {
+      hideLoading: function () {
         const that = this;
         if (that.instance) {
           that.instance.hideLoading();
         }
       },
-      getDataURL: function(opts) {
+      getDataURL: function (opts) {
         const that = this;
         return that.instance.getDataURL(opts);
       },
-      getConnectedDataURL: function(opts) {
+      getConnectedDataURL: function (opts) {
         const that = this;
         return that.instance.getConnectedDataURL(opts);
       },
-      clear: function() {
+      clear: function () {
         const that = this;
         if (that.instance) {
           that.instance.clear();
         }
       },
-      uninitResize: function() {
+      uninitResize: function () {
         const that = this;
         if (that.insResize && that.insResize.uninstall) {
           that.insResize.uninstall(that.$el);
@@ -346,7 +347,7 @@ function wrapECharts(ECharts) {
           that.fnResize = null;
         }
       },
-      uninit: function() {
+      uninit: function () {
         const that = this;
         if (that.instance) {
           that.unbind();

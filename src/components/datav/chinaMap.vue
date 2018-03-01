@@ -10,10 +10,10 @@
       <div class="column is-4 is-clearfix leftControl">
         <!--今日区域扫码量前十  -->
        <div class="lineDiv h60 leftUp">
-          今日区域扫码量前十
+          <!-- 今日区域扫码量前十 -->
           <div class="leftContent">
            
-            <div class="txtTip is-clearfix">
+            <div class="txtTip is-clearfix mt20">
               今日区域扫码量前十
             </div>
 
@@ -56,11 +56,23 @@
         <div class="lineDiv h70 columns mgnone">
           <!-- 扫码区域 start -->
           <div class="column is-9 pl0 chinaMapDiv pt0">
-              扫码区域分布图
+              <!-- 扫码区域分布图 -->
 
               <div class="imapContext">
-                地图
-                  
+                    <div class="txtTipPart2 is-clearfix fl-left">
+                      扫码量区域分布图
+                    </div>
+                    <div class="imapChina" id="imapChina">
+          
+                       <IEcharts
+                        :option="optionMap"
+                        @ready="onimapChina"
+                        :loading="loadingMap"
+                        />  
+
+
+                    </div>
+
 
               </div>
 
@@ -135,6 +147,16 @@
 <script>
 import IEcharts from "../../util/echarts/full";
 import Util from "../../util";
+// --
+import * as echarts from "echarts";
+
+// common
+const doc = document;
+const win = window;
+// 随机数据
+function randomData() {
+  return Math.round(Math.random() * 1000);
+}
 
 export default {
   name: "chinaMap",
@@ -143,25 +165,60 @@ export default {
   },
   data() {
     return {
-      ins: null,
-      echarts: null, //引入
-      loading: true,
+      // part1
+      ins: null, //每日扫码量 ins
+      echarts: null, //每日扫码量 echarts
       option: {
         title: {
           show: false
         },
         color: ["#11d8b7", "#ffb300"]
       },
+      // part2
+      insMap: null, //扫码量区域分布图 ins
+      echartsMap: null, //扫码量区域分布图 echarts
+      loadingMap: true,
+      optionMap: {
+        title: {
+          show: false
+        },
+        color: ["#11d8b7", "#ffb300"]
+      },
+      //  part3
+      insPat1: null, //生码量 ins
+      echartsPat1: null, //生码量 echarts
+      optionPat1: {
+        title: {
+          show: false
+        },
+        color: ["#11d8b7", "#ffb300"]
+      },
+      // pat 4
+      insPat2: null, //规格对比  ins
+      echartsPat2: null, //规格对比   echarts
+      optionPat2: {
+        title: {
+          show: false
+        },
+        color: ["#11d8b7", "#ffb300"]
+      },
+
+      loading: true,
+
       stime: new Date(),
       config: {}
     };
   },
   mounted() {
+    const that = this;
     // console.log(global);
     // console.log(Util.isEmpty(""));
     // console.log(Util.screen.listenKeyDown());
-    console.log(Util);
+    // console.log(Util);
     // console.log(Util.screen.listenResize());
+
+    console.log(that.$store);
+    // this.$store.dispatch("setLoading", "true");
   },
   methods: {
     // 生码量
@@ -207,18 +264,19 @@ export default {
       //   console.log(instance.setOption({}));
       // console.log(that.ins.getWidth());
       //   console.log(echarts);
+      console.log(that);
     },
     // 每日扫码量
     onLeftReady(instance, echarts) {
       const that = this;
-      that.ins = instance;
-      that.echarts = echarts;
+      that.insPat1 = instance;
+      that.echartsPat1 = echarts;
 
       that.loading = false;
 
       const updataReady = function() {
         // console.log("object");
-        that.ins.setOption({
+        that.insPat1.setOption({
           xAxis: {
             type: "category",
 
@@ -278,22 +336,23 @@ export default {
       };
 
       updataReady();
+      console.log(that);
     },
     // 规格扫码量
     onFootReady(instance, echarts) {
       // console.log("object");
       const that = this;
-      that.ins = instance;
-      that.echarts = echarts;
+      that.insPat2 = instance;
+      that.echartsPat2 = echarts;
 
       that.loading = false;
 
       const updataReady = function() {
         // console.log("object");
-        that.ins.setOption({
+        that.insPat2.setOption({
           grid: {
             top: 20,
-            left: "5%",
+            left: "6%",
             right: "2%",
             bottom: 20
           },
@@ -337,7 +396,7 @@ export default {
           series: [
             {
               name: "扫码量",
-              data: [18210, 29232, 7901, 6234, 12290, 3330, 9320, 5201],
+              data: [18210, 29023, 17901, 26234, 12290, 3330, 9320, 5201],
               type: "line",
               label: {
                 normal: {
@@ -372,6 +431,150 @@ export default {
       };
 
       updataReady();
+    },
+    // 扫码区域分布图
+    onimapChina(instance, echarts) {
+      const that = this;
+      that.insMap = instance;
+      that.echartsMap = echarts;
+
+      that.loadingMap = false;
+
+      const updataReadye = function() {
+        // console.log(that);
+
+        that.insMap.setOption({
+          title: {
+            show: false
+          },
+          // backgroundColor: "#010b43",
+          layoutCenter: ["30%", "30%"],
+          tooltip: {
+            trigger: "item"
+          },
+          visualMap: {
+            min: 0,
+            max: 2500,
+            left: "left",
+            top: "bottom",
+            text: ["高", "低"], // 文本，默认为数值文本
+            calculable: false,
+            // seriesIndex: [1],
+            inRange: {
+              color: ["#f9eaa2", "#bb8f3e"]
+            },
+            textStyle: {
+              color: "#fff"
+            },
+            show: false
+          },
+          geo: {
+            type: "map",
+            map: "china",
+            regions: [
+              {
+                name: "南海诸岛",
+                value: 0,
+                itemStyle: { normal: { opacity: 0, label: { show: false } } }
+              }
+            ],
+            label: {
+              normal: {
+                textStyle: {
+                  color: "#fff"
+                },
+                show: false
+              },
+              emphasis: {
+                textStyle: {
+                  color: "#C6A300"
+                },
+                show: false
+              }
+            },
+            itemStyle: {
+              normal: {
+                show: false,
+                areaColor: "rgba(0,0,0,0)",
+                borderColor: "#126cc4",
+                borderWidth: 1.3
+              },
+              emphasis: {
+                show: false,
+                areaColor: "rgba(233,0,200,0.3)"
+              }
+            }
+          },
+          series: [
+            {
+              name: "扫码量",
+              type: "map",
+              mapType: "china",
+
+              roam: false,
+              label: {
+                normal: {
+                  show: false
+                },
+                emphasis: {
+                  show: true
+                }
+              },
+              data: [
+                {
+                  name: "南海诸岛",
+                  value: 0,
+                  itemStyle: {
+                    normal: { opacity: 0, label: { show: false } }
+                  }
+                },
+                { name: "北京", value: randomData() },
+                { name: "天津", value: randomData() },
+                { name: "上海", value: randomData() },
+                { name: "重庆", value: randomData() },
+                { name: "河北", value: randomData() },
+                { name: "河南", value: randomData() },
+                { name: "云南", value: randomData() },
+                { name: "辽宁", value: randomData() },
+                { name: "黑龙江", value: randomData() },
+                { name: "湖南", value: randomData() },
+                { name: "安徽", value: randomData() },
+                { name: "山东", value: randomData() },
+                { name: "新疆", value: randomData() },
+                { name: "江苏", value: randomData() },
+                { name: "浙江", value: randomData() },
+                { name: "江西", value: randomData() },
+                { name: "湖北", value: randomData() },
+                { name: "广西", value: randomData() },
+                { name: "甘肃", value: randomData() },
+                { name: "山西", value: randomData() },
+                { name: "内蒙古", value: randomData() },
+                { name: "陕西", value: randomData() },
+                { name: "吉林", value: randomData() },
+                { name: "福建", value: randomData() },
+                { name: "贵州", value: randomData() },
+                { name: "广东", value: randomData() },
+                { name: "青海", value: randomData() },
+                { name: "西藏", value: randomData() },
+                { name: "四川", value: randomData() },
+                { name: "宁夏", value: randomData() },
+                { name: "海南", value: randomData() },
+                { name: "台湾", value: randomData() },
+                { name: "香港", value: randomData() },
+                { name: "澳门", value: randomData() }
+              ]
+            }
+          ]
+        });
+      };
+      // updataReadye();
+      setTimeout(() => {
+        updataReadye();
+      }, 100);
+
+      // that.ins.on("dataZoom", updataReadye);
+      console.log(that.insMap);
+      // console.log(that.ins.getOption());
     }
   }
 };

@@ -102,7 +102,11 @@ export default {
         type: "map",
         map: "china",
         regions: [
-          { name: "南海诸岛", value: 0, itemStyle: { normal: { opacity: 0, label: { show: false } } } }
+          {
+            name: "南海诸岛",
+            value: 0,
+            itemStyle: { normal: { opacity: 0, label: { show: false } } }
+          }
         ],
         label: {
           normal: {
@@ -195,7 +199,7 @@ export default {
     setTimeout(() => {
       mainGeo.setOption(geoOption);
       mainGeo.hideLoading();
-      // reload()
+      // reload();
     }, 2000);
 
     function reload() {

@@ -32,6 +32,12 @@ const routes = [
     component: resolve => require(["@/components/datav/chinaMap.vue"], resolve)
   },
   {
+    path: "/imapchina",
+    name: "imapchina",
+    // aync loading model 异加载模块
+    component: resolve => require(["@/components/chinaMap/map.vue"], resolve)
+  },
+  {
     path: "/store",
     name: "Store",
     // aync loading model 异加载模块
