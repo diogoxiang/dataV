@@ -12,7 +12,7 @@ module.exports = {
   // axios time
   timeout: 5000,
   // 后台API地址
-  baseURL: "/",
+  baseURL: "http://192.168.1.67:8087/cloud2.data/", // 田宏的地址
   // 服务配置
   href: "localhost",
   // port: 8080,

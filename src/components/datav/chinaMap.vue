@@ -18,7 +18,28 @@
             </div>
 
             <div class="txtContent is-clearfix">
-              leftContent
+              <!-- leftContent -->
+                <!-- itemDiv start -->
+                <div class="itemDiv columns is-gapless" v-for="item in scanTopList" >
+                  <div class="itemName column is-2">
+                    {{item.province}}
+                  </div>
+                  <div class="itemProgress column is-8">
+                    <div class="ProgressBg">
+                      &nbsp;
+                    </div>
+                    <div class="ProgressValue"  :style="{ width: item.progress + '%' }">
+                      &nbsp;
+                    </div>
+                  </div>
+                  <div class="itemNumber column is-2 fn-right">
+                    {{item.total}}
+                  </div>
+                </div>
+                <!-- itemDiv end -->
+
+                 
+                  
             </div>
              
           </div>
@@ -76,6 +97,61 @@
 
               </div>
 
+              <!-- totalContext -->
+              <div class="totalContext"> 
+                  <!-- totalContext -->
+                  <div class="totalTxt">
+                      所有扫码量
+                      <div class="totalNum text-right">
+                        {{scanCount | formatCash}}
+                      </div>
+                  </div>
+                  <!-- e -->
+                    <div class="totalTxt">
+                      单品扫码量
+                      <div class="totalNum text-right">
+                        {{sgScanCount | formatCash}}
+                      </div>
+                  </div>
+                    <!-- e -->
+                    <div class="totalTxt">
+                      首次验真量
+                      <div class="totalNum text-right">
+                        {{checkCount | formatCash}}
+                      </div>
+                  </div>
+
+
+              </div>
+                <!-- totalContext end  -->
+
+                <div class="totalDayContext columns ">
+
+                    <!-- totalDayContext -->
+                    <div class="totalDayDiv column">
+                        <div class="totalDayTxt ">
+                          今日扫码数量  
+                        </div>
+                        <div class="totalDayNum text-right">
+                             {{todayScanCount}}
+                        </div>
+
+                    </div>
+
+                    <div class="totalDayDiv column">
+                        <div class="totalDayTxt">
+                          今日验真次数
+                        </div>
+                        <div class="totalDayNum text-right">
+                          {{todayCheckCount}}
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
 
           </div>
           <!-- 扫码区域 end -->
@@ -84,12 +160,12 @@
                <div class="rightContent">
 
                 <div class="countDiv fn-center">
-                  <p class="color-yellow numberDiv">1321321313213213</p>  
+                  <p class="color-yellow numberDiv">{{codeBagCount | formatCash}}</p>  
                   <p class="color-blue"> 印刷厂总生产码量 </p>
                 </div> 
                 
                  <div class="countDiv fn-center mt20">
-                  <p class="color-yellow numberDiv">1321321313213213</p>  
+                  <p class="color-yellow numberDiv">{{activateCount | formatCash}}</p>  
                   <p class="color-blue"> 已激活码数量 </p>
                 </div> 
 
@@ -145,6 +221,8 @@
 
 
 <script>
+import api from "../../server/api";
+
 import IEcharts from "../../util/echarts/full";
 import Util from "../../util";
 // --
@@ -206,7 +284,19 @@ export default {
       loading: true,
 
       stime: new Date(),
-      config: {}
+      config: {},
+      comId: "", //公司id 标识,目前取值（163、164、166）
+      // 今日区域扫码量数据集
+      scanTopList: [],
+      todayActivateCount: 0, // 今日激活码量.
+      todayCodeBagCount: 0, // 今日生码码量.
+      activateCount: 0, // 所有激活码量.
+      codeBagCount: 0, // 所有生码码量.
+      todayCheckCount: 0, // 今日验真次数.
+      todayScanCount: 0, // 今日扫码数量.
+      checkCount: 0, // 历史验证次数.
+      scanCount: 0, // 历史扫码量.
+      sgScanCount: 0 // 单品扫码量.
     };
   },
   mounted() {
@@ -214,11 +304,18 @@ export default {
     // console.log(global);
     // console.log(Util.isEmpty(""));
     // console.log(Util.screen.listenKeyDown());
-    // console.log(Util);
+    console.log(Util);
     // console.log(Util.screen.listenResize());
 
-    console.log(that.$store);
+    // console.log(that.$store);
     // this.$store.dispatch("setLoading", "true");
+
+    that.getCountCodePool();
+    that.getScanTop();
+
+    that.getScanDayList();
+    that.getScanTypeList();
+    // that.$store.dispatch("setTip", { text: "result.msg", time: 30000 });
   },
   methods: {
     // 生码量
@@ -234,18 +331,17 @@ export default {
         that.ins.setOption({
           series: {
             type: "pie",
-            radius: ["30%", "86%"],
+            radius: ["30%", "56%"],
             hoverAnimation: false,
             label: {
               normal: {
                 formatter: "{b}\n {d}%",
                 fontSize: 14,
                 // backgroundColor: "#eee",
-                position: "inside",
+                position: "outside",
                 verticalAlign: "middle"
               }
             },
-
             data: [
               {
                 name: "激活数量",
@@ -264,7 +360,7 @@ export default {
       //   console.log(instance.setOption({}));
       // console.log(that.ins.getWidth());
       //   console.log(echarts);
-      console.log(that);
+      // console.log(that);
     },
     // 每日扫码量
     onLeftReady(instance, echarts) {
@@ -277,10 +373,12 @@ export default {
       const updataReady = function() {
         // console.log("object");
         that.insPat1.setOption({
+          grid: {
+            top: 10
+          },
           xAxis: {
             type: "category",
-
-            data: ["1日", "2日", "3日", "4日", "5日", "6日", "7日"],
+            // data: ["1日", "2日", "3日", "4日", "5日", "6日", "7日"],
             axisLine: {
               lineStyle: {
                 color: "#9de9ff"
@@ -291,6 +389,9 @@ export default {
             },
             axisTick: {
               show: true
+            },
+            axisLabel: {
+              interval: 0
             }
             // boundaryGap: false
           },
@@ -308,7 +409,7 @@ export default {
           series: [
             {
               name: "扫码量",
-              data: [1820, 2932, 3901, 3234, 2290, 3330, 1320],
+              // data: [1820, 2932, 3901, 3234, 2290, 3330, 1320],
               type: "line",
               color: ["#f1e531"],
               symbolSize: 10,
@@ -336,7 +437,6 @@ export default {
       };
 
       updataReady();
-      console.log(that);
     },
     // 规格扫码量
     onFootReady(instance, echarts) {
@@ -358,17 +458,7 @@ export default {
           },
           xAxis: {
             type: "category",
-
-            data: [
-              "玉溪(硬)",
-              "云烟",
-              "红塔山",
-              "玉溪(软)",
-              "玉溪(透明)",
-              "玉溪(田园)",
-              "云烟(细支)",
-              "云烟(细支)"
-            ],
+            // data: ["玉溪(硬)", "云烟", "红塔山"],
             axisLine: {
               lineStyle: {
                 color: "#9de9ff"
@@ -396,7 +486,7 @@ export default {
           series: [
             {
               name: "扫码量",
-              data: [18210, 29023, 17901, 26234, 12290, 3330, 9320, 5201],
+              // data: [0, 0, 0],
               type: "line",
               label: {
                 normal: {
@@ -471,6 +561,7 @@ export default {
           geo: {
             type: "map",
             map: "china",
+            top: "10%",
             regions: [
               {
                 name: "南海诸岛",
@@ -510,7 +601,7 @@ export default {
               name: "扫码量",
               type: "map",
               mapType: "china",
-
+              top: "10%",
               roam: false,
               label: {
                 normal: {
@@ -573,8 +664,189 @@ export default {
       }, 100);
 
       // that.ins.on("dataZoom", updataReadye);
-      console.log(that.insMap);
+      // console.log(that.insMap);
       // console.log(that.ins.getOption());
+    },
+    // 获取今日区域扫码量前十
+    getScanTop() {
+      const that = this;
+      that.axios.get(api.getScanTop).then(res => {
+        // response.data;
+        if (res.code == 200) {
+          // console.log(res);
+          // that.formatData(res.data);
+
+          that.scanTopList = that.formatData(res.data);
+        } else {
+          res.msg && that.$store.dispatch("setTip", { text: res.msg });
+        }
+      });
+    },
+    // 汇总统计各项数据
+    getCountCodePool() {
+      const that = this;
+      that.axios.get(api.getCountCodePool).then(response => {
+        // response.data;
+        let result = response;
+
+        if (result.code == 200) {
+          that.todayActivateCount = result.data.todayActivateCount; // 今日激活码量.
+          that.todayCodeBagCount = result.data.todayCodeBagCount; // 今日生码码量.
+          that.activateCount = result.data.activateCount; // 所有激活码量.
+          that.codeBagCount = result.data.codeBagCount; // 所有生码码量.
+          that.todayCheckCount = result.data.todayCheckCount; // 今日验真次数.
+          that.todayScanCount = result.data.todayScanCount; // 今日扫码数量.
+          that.checkCount = result.data.checkCount; // 历史验证次数.
+          that.sgScanCount = result.data.sgScanCount; // 单品扫码量.
+          that.scanCount = result.data.scanCount; // 历史扫码量.
+
+          // 生码量的问题 100%
+
+          let activateCode = Util.tool.toDecimal(that.activateCount / that.codeBagCount) * 100;
+          console.log(activateCode);
+
+          that.ins.setOption({
+            series: {
+              type: "pie",
+
+              data: [
+                {
+                  name: "激活数量",
+                  // value: that.activateCount || 0
+                  value: activateCode
+                },
+                {
+                  name: "生码量",
+                  // value: that.codeBagCount || 0
+                  value: 100 - activateCode
+                }
+              ]
+            }
+          });
+        } else {
+          that.$store.dispatch("setTip", { text: result.msg });
+        }
+      });
+    },
+    // 格式化 getScanTop数据
+    formatData(data) {
+      const that = this;
+      // console.log(data);
+      let tempArray = [];
+      let tCount = 0;
+
+      try {
+        data.forEach(element => {
+          tCount += element.total;
+        });
+
+        data.forEach(element => {
+          // console.log(element);
+          element.progress = Util.tool.toDecimal(element.total / tCount) * 100;
+          tempArray.push(element);
+        });
+
+        // console.log(tempArray);
+        return tempArray;
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    // 每日扫码量对比
+    getScanDayList() {
+      const that = this;
+
+      that.axios.get(api.getScanDayList).then(res => {
+        // response.data;
+        if (res.code == 200) {
+          // console.log(res);
+          // that.formatData(res.data);
+          // that.scanTopList = that.formatData(res.data);
+
+          that.insPat1.setOption({
+            xAxis: {
+              data: that.formatScanDayList(res.data, "day"),
+              axisLabel: {
+                rotate: 40
+              }
+              // data: ["1日", "2日", "3日", "4日", "5日", "6日", "7日"]
+            },
+            series: [
+              {
+                name: "扫码量",
+                data: that.formatScanDayList(res.data, "scanCount"),
+                type: "line",
+                color: ["#f1e531"],
+                symbolSize: 10,
+                label: {
+                  normal: {
+                    show: true,
+                    position: "top",
+                    color: "#fff"
+                  }
+                },
+                lineStyle: {
+                  normal: {
+                    color: "#f1e531"
+                  }
+                },
+                itemStyle: {
+                  normal: {
+                    borderWidth: 2,
+                    borderColor: ["#ffb300"]
+                  }
+                }
+              }
+            ]
+          });
+        } else {
+          res.msg && that.$store.dispatch("setTip", { text: res.msg });
+        }
+      });
+    },
+    // 格式化 getScanDayList 数据
+    formatScanDayList(data, type) {
+      const that = this;
+      // console.log(data);
+      let tempArray = [];
+      try {
+        data.forEach(el => {
+          // console.log(el[type]);
+          tempArray.push(el[type]);
+        });
+      } catch (error) {
+        console.log(error);
+      }
+      tempArray.reverse();
+      // console.log(tempArray);
+      return tempArray;
+    },
+    // 今日不同规格扫码量对比
+    getScanTypeList() {
+      const that = this;
+
+      that.axios.get(api.getScanTypeList).then(res => {
+        // response.data;
+        if (res.code == 200) {
+          console.log(res);
+          // that.formatData(res.data);
+          that.insPat2.setOption({
+            xAxis: {
+              data: that.formatScanDayList(res.data, "materialsName")
+            },
+            series: [
+              {
+                name: "扫码量",
+                data: that.formatScanDayList(res.data, "scanNum"),
+                type: "line"
+              }
+            ]
+          });
+          // that.scanTopList = that.formatData(res.data);
+        } else {
+          res.msg && that.$store.dispatch("setTip", { text: res.msg });
+        }
+      });
     }
   }
 };

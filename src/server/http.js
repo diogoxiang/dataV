@@ -20,7 +20,7 @@ axios.interceptors.request.use(
       config.headers.Authorization = `token ${store.state.token}`;
     }
     //
-    console.log("object");
+    // console.log("object");
     store.dispatch("setLoading", true);
     return config;
   },
@@ -34,7 +34,7 @@ axios.interceptors.response.use(
   response => {
     // 隐藏loading
     store.dispatch("setLoading", false);
-    return response;
+    return response.data;
   },
   error => {
     // 隐藏loading

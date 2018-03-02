@@ -56,7 +56,7 @@ export default {
     position: fixed;
     left: 50%;
     top: 50%;
-    width: 80%;
+    width: 40%;
     transform: translate(-50%, -50%);
     background-color: rgba(0, 0, 0, 0.7);
     text-align: center;

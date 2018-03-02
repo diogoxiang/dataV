@@ -120,6 +120,44 @@
     }
     .leftContent {
         padding: pxTorem(32px);
+        .itemDiv {
+            width: 100%;
+            margin: pxTorem(20px) 0;
+            color: #9de9ff;
+        }
+        .itemName {
+            overflow: hidden;
+        }
+        .itemProgress {
+            position: relative;
+        }
+        .ProgressBg {
+            width: 100%;
+            -moz-appearance: none;
+            -webkit-appearance: none;
+            border: 1px solid #11b8a2;
+            display: block;
+            height: 1rem;
+            overflow: hidden;
+            padding: 0;
+            border-radius: pxTorem(160px);
+            margin-top: pxTorem(3px);
+            position: absolute
+        }
+        .ProgressValue {
+            // width: 10%;
+            min-width: 1%;
+            -moz-appearance: none;
+            -webkit-appearance: none; // border: 1px solid #11b8a2;
+            background: #2eed8f;
+            display: block;
+            height: 1rem;
+            overflow: hidden;
+            padding: 0;
+            border-radius: pxTorem(160px);
+            margin-top: pxTorem(3px);
+            position: absolute
+        }
     }
     .leftContent2 {
         padding: pxTorem(20px);
@@ -209,4 +247,54 @@
 .imapChina {
     height: 100%;
     width: 100%;
+}
+
+.totalContext {
+    position: absolute;
+    top: pxTorem(120px);
+    right: pxTorem(50px);
+    width: 26%;
+    height: 72%;
+    padding-top: 3%;
+    color: #9de9ff;
+    .totalTxt {
+        font-size: pxTorem(20px);
+        margin-top: pxTorem(20px);
+    }
+    .totalNum {
+        width: 100%;
+        height: pxTorem(45px);
+        line-height: pxTorem(45px);
+        background: url("./../img/tip_bg.png") center no-repeat;
+        background-size: 100% 100%;
+        color: $color-yellow02;
+        font-size: pxTorem(32px);
+        padding: 0 pxTorem(8px);
+        margin-top: pxTorem(8px);
+    }
+}
+
+.totalDayContext {
+    position: absolute;
+    bottom: pxTorem(20px);
+    left: pxTorem(50px);
+    width: 60%;
+    .totalDayDiv {
+        width: 45%;
+        .totalDayTxt {
+            font-size: pxTorem(20px);
+            color: $color-yellow;
+        }
+        .totalDayNum {
+            width: 100%;
+            height: pxTorem(60px);
+            line-height: pxTorem(60px);
+            background: url("./../img/tip_bg.png") center no-repeat;
+            background-size: 100% 100%;
+            color: $color-yellow02;
+            font-size: pxTorem(32px);
+            padding: 0 pxTorem(8px);
+            margin-top: pxTorem(8px);
+        }
+    }
 }
