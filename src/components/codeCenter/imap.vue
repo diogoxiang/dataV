@@ -101,7 +101,7 @@
               <div class="totalContext"> 
                   <!-- totalContext -->
                   <div class="totalTxt">
-                      所有扫码量
+                      历史扫码量
                       <div class="totalNum text-right">
                         {{scanCount | formatCash}}
                       </div>
@@ -226,7 +226,7 @@ import api from "../../server/api";
 import IEcharts from "../../util/echarts/full";
 import Util from "../../util";
 // --
-import * as echarts from "echarts";
+// import * as echarts from "echarts";
 
 // common
 const doc = document;

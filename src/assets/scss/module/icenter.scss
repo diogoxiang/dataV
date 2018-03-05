@@ -1,0 +1,65 @@
+@import "partial/_variables",
+"partial/_reset",
+"partial/_mixin";
+// common
+.cDiv {
+    height: 65%;
+}
+
+// --
+.userContainer {
+    position: relative; // height: 100%; // border: 1px solid #ffffff
+    height: 100%; // padding: 40px auto;
+    // margin-top: 10px;
+    .mainTop {
+        background-position-x: 50.5%;
+        background-size: 40% 96%;
+    }
+}
+
+.columns.is-gapless:not(:last-child) {
+    margin-bottom: pxTorem(10px);
+}
+
+.userDiv {
+    position: relative;
+    z-index: 2;
+    height: 100%;
+    overflow: hidden; // 
+    padding-top: pxTorem(30px);
+}
+
+.userMap {
+    height: 100%; // border: 1px solid $color-blue;
+    background: url("./../img/user_map.png") left top no-repeat;
+    background-size: 99.5% 100%;
+    padding: pxTorem(10px);
+    position: relative;
+    .txtTip {
+        width: pxTorem(280px);
+    }
+    .userMapContent {
+        // width: 60%;
+        position: absolute;
+        top: pxTorem(66px);
+        left: pxTorem(20px);
+        width: 60%;
+        height: 72%;
+    }
+}
+
+.userData {
+    height: 100%; // border: 1px solid $color-blue;
+    background: url("./../img/user_line.png") right top no-repeat;
+    background-size: 99.5% 100%;
+    padding: pxTorem(10px);
+}
+
+.footDiv {
+    width: 100%; // 
+    height: 33%;
+    margin-bottom: pxTorem(10px); // border: 1px solid $color-blue;
+    background: url("./../img/user_foot.png") left top no-repeat;
+    background-size: 100% 100%;
+    padding: pxTorem(10px);
+}

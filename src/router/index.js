@@ -26,16 +26,18 @@ const routes = [
     component: resolve => require(["@/components/dataV.vue"], resolve)
   },
   {
+    // 二维码数据中心
     path: "/imap",
     name: "imap",
     // aync loading model 异加载模块
-    component: resolve => require(["@/components/datav/chinaMap.vue"], resolve)
+    component: resolve => require(["@/components/codeCenter/imap.vue"], resolve)
   },
   {
-    path: "/imapchina",
-    name: "imapchina",
+    // 用户运营数据中心
+    path: "/userCenter",
+    name: "userCenter",
     // aync loading model 异加载模块
-    component: resolve => require(["@/components/chinaMap/map.vue"], resolve)
+    component: resolve => require(["@/components/userCenter/uCenter.vue"], resolve)
   },
   {
     path: "/store",
