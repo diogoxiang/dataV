@@ -33,11 +33,34 @@ const routes = [
     component: resolve => require(["@/components/codeCenter/imap.vue"], resolve)
   },
   {
+    // 活动运营数据中心
+    path: "/activeData",
+    name: "activeData",
+    // aync loading model 异加载模块
+    component: resolve => require(["@/components/activeCenter/activeData.vue"], resolve)
+  },
+  {
     // 用户运营数据中心
     path: "/userCenter",
     name: "userCenter",
     // aync loading model 异加载模块
     component: resolve => require(["@/components/userCenter/uCenter.vue"], resolve)
+  },
+  {
+    // 各中烟注册占用对比
+    path: "/mCenter",
+    name: "mCenter",
+    // aync loading model 异加载模块
+    component: resolve => require(["@/components/userCenter/myCenter.vue"], resolve)
+
+  },
+  {
+    // 各中烟注册占用对比
+    path: "/example",
+    name: "example",
+    // aync loading model 异加载模块
+    component: resolve => require(["@/components/example/example.vue"], resolve)
+
   },
   {
     path: "/store",

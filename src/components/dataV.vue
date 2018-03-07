@@ -15,7 +15,7 @@
 <script>
 import IEcharts from "../util/echarts/full";
 
-import * as echarts from "echarts";
+// import * as echarts from "echarts";
 
 // 随机数据
 function randomData() {

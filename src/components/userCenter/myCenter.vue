@@ -132,12 +132,13 @@
                 </div>
             </div>
             
-            <!-- footDIV -->
+            <!-- myfootDiv -->
  
-            <div class="footDiv is-clearfix">
-                    
-                    <div class="contentDiv columns">
-
+            <div class="myfootDiv is-clearfix">
+                    <div class="contentDiv columns is-gapless">
+                        <div class="column is-8 bgLine03">
+                            <div class="contentDiv  columns">
+                             
                         <div class="column">
                                 <!-- left -->
                                 <div class="pTitle">
@@ -173,12 +174,32 @@
 
                         </div>
 
-                    </div>
+                            </div>
 
+                        </div>
+                        <div class="column is-4 bgLine04 isRelative">
+                          <div class="txtTip is-clearfix mt5">
+                          各种中烟注册用户占比
+                          </div>
+                          <div class="pContent isAbsolute">
+                                    <!-- pContent -->
+                                     <IEcharts
+                                    :option="optionSort"
+                                    @ready="onSortReady"
+                                    :loading="loadingSort"
+                                /> 
+                          </div>
+
+
+                        </div>
+
+                    </div>
+               
+    
 
 
             </div>
-            <!-- foot end -->
+            <!-- myfootDiv end -->
         </div>
 
         
@@ -243,6 +264,16 @@ export default {
       echartsSeven: null,
       loadingSeven: true,
       optionSeven: {
+        title: {
+          show: false
+        },
+        color: ["#60ccf9", "#ffb300"]
+      },
+      // part 5 各中烟注册用户占比
+      insSort: null,
+      echartsSort: null,
+      loadingSort: true,
+      optionSort: {
         title: {
           show: false
         },
@@ -441,6 +472,7 @@ export default {
       };
       updataReadye();
     },
+    // 今日活跃度占比
     onActiveReady(instance, echarts) {
       const that = this;
       that.insActive = instance;
@@ -457,7 +489,7 @@ export default {
               selectedMode: "single",
               hoverAnimation: false,
               legendHoverLink: false,
-              radius: "65%",
+              radius: "55%",
               silent: true,
               minAngle: 35,
               label: {
@@ -473,7 +505,7 @@ export default {
               tooltip: {
                 show: false
               },
-              data: [{ value: 1, name: "", selected: true }, { value: 98, name: "" }]
+              data: [{ value: 3215642, name: "", selected: true }, { value: 2215642, name: "" }]
             },
             {
               name: "访问来源",
@@ -485,7 +517,25 @@ export default {
               label: {
                 normal: {
                   position: "outside",
-                  formatter: ["{a|{b}: } {c|{c}} \n{a|占比: }{c| {d}%} ", "{hr|}"].join("\n"),
+                  // formatter: ["{a|{b}: } {c|{c}} \n{a|占比: }{c| {d}%} ", "{hr|}"].join("\n"),
+
+                  formatter: function(params) {
+                    // console.log(params);
+
+                    let vpercent = Util.tool.formatCash(params.value);
+
+                    return (
+                      "{a|" +
+                      params.name +
+                      ": }" +
+                      "{c|" +
+                      vpercent +
+                      "}\n" +
+                      "{e|占比: " +
+                      params.percent +
+                      "%}"
+                    );
+                  },
 
                   rich: {
                     a: {
@@ -499,6 +549,12 @@ export default {
                       fontSize: 22,
                       align: "left",
                       padding: [5, 0, 0, 0],
+                      verticalAlign: "bottom"
+                    },
+                    e: {
+                      fontSize: 16,
+                      align: "left",
+                      padding: [26, 0, 0, 0],
                       verticalAlign: "bottom"
                     },
                     hr: {
@@ -517,7 +573,7 @@ export default {
                   show: true,
                   length: 80 * scale,
                   //   length: 0,
-                  length2: 40,
+                  length2: 20,
                   lineStyle: {
                     color: "#0b5263",
                     width: 2
@@ -526,7 +582,7 @@ export default {
               },
               data: [
                 {
-                  value: 1,
+                  value: 3215642,
                   name: "活动用户",
                   selected: true,
                   itemStyle: {
@@ -536,7 +592,7 @@ export default {
                   }
                 },
                 {
-                  value: 98,
+                  value: 2215642,
                   name: "注册用户",
                   itemStyle: {
                     normal: {
@@ -552,6 +608,7 @@ export default {
 
       upActiveReady();
     },
+    // 7日用户注册手势
     onSevenReady(instance, echarts) {
       const that = this;
       that.insSeven = instance;
@@ -637,6 +694,73 @@ export default {
       };
 
       upSevenReady();
+    },
+    // 各中烟注册用户占比
+    onSortReady(instance, echarts) {
+      const that = this;
+      that.insSort = instance;
+      that.echartsSort = echarts;
+
+      that.loadingSort = false;
+      const upSortReady = function() {
+        that.insSort.setOption({
+          series: [
+            {
+              name: "各市违法违规比例",
+              type: "pie",
+              radius: ["30%", "45%"],
+              center: ["50%", "60%"],
+              silent: true,
+              minAngle: 35,
+              color: ["#e86bff", "#00ffda", "#ffb400", "#fff600"],
+              label: {
+                normal: {
+                  // formatter: "{a|{c}}\n{e|{b} {d}%}",
+                  formatter: function(params) {
+                    // console.log(params);
+
+                    let vpercent = Util.tool.formatCash(params.value);
+
+                    return "{a|" + vpercent + "}\n{e|" + params.name + " " + params.percent + "%}";
+                  },
+                  rich: {
+                    a: {
+                      //   color: "#ffb300",
+                      lineHeight: 3,
+                      fontSize: 24,
+                      align: "left",
+                      padding: [48, 0, 0, 0]
+                    },
+                    e: {
+                      fontSize: 16,
+                      lineHeight: 2,
+                      align: "left",
+                      padding: [0, 0, 10, 0],
+                      verticalAlign: "bottom"
+                    }
+                  }
+                }
+              },
+              labelLine: {
+                normal: {
+                  show: true,
+                  length: 40,
+                  //   length: 0,
+                  length2: 20
+                }
+              },
+              data: [
+                { value: 322533, name: "吉林中烟" },
+                { value: 322323, name: "陕西中烟" },
+                { value: 334313, name: "安徽中烟" },
+                { value: 133313, name: "云南中烟" }
+              ]
+            }
+          ]
+        });
+      };
+
+      upSortReady();
     }
   }
 };

@@ -1,7 +1,7 @@
 <template>
   <div class="imapContainer is-clearfix">
     <div class="mainTop">
-        <span class="headtip">二维码运营数据中心</span>
+        <span class="headtip">活动运营数据中心</span>
     </div>
   
     <div class="columns imapDiv">

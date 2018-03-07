@@ -46,6 +46,81 @@
         width: 60%;
         height: 72%;
     }
+    .userTotalContext {
+        position: absolute;
+        top: pxTorem(100px);
+        right: pxTorem(20px);
+        color: $color-blue;
+        width: 30%;
+        height: 72%;
+        .totalTxt {
+            font-size: pxTorem(20px);
+            margin-top: pxTorem(20px);
+        }
+        .totalNum {
+            width: 80%;
+            height: pxTorem(45px);
+            line-height: pxTorem(45px);
+            background: url("./../img/tip_bg.png") center no-repeat;
+            background-size: 100% 100%;
+            color: $color-yellow02;
+            font-size: pxTorem(32px);
+            padding: 0 pxTorem(8px);
+            margin-top: pxTorem(8px);
+        }
+        .totalPie {
+            height: pxTorem(100px);
+            background: url("./../img/user_line01.png") center no-repeat;
+            background-size: 100% 100%;
+        }
+        .cleft {
+            height: pxTorem(100px);
+            line-height: pxTorem(100px); // width: 20%;
+            margin-left: pxTorem(12px);
+        }
+        .cright {
+            height: pxTorem(100px);
+            line-height: pxTorem(100px); // 
+            width: 55%;
+        }
+    }
+    .userProvinces {
+        position: absolute;
+        left: pxTorem(40px);
+        bottom: pxTorem(16px);
+        width: 25%;
+        height: 35%;
+        .pTitle {
+            text-align: center;
+            color: $color-green01;
+            font-size: pxTorem(20px);
+        }
+        .pDiv {
+            background: url("./../img/user_line02.png") left top no-repeat;
+            background-size: 100% 100%;
+            height: 80%;
+            padding: pxTorem(20px);
+            ul {
+                li {
+                    color: $color-blue - 30;
+                    margin-top: pxTorem(3px);
+                    overflow: hidden;
+                }
+            }
+        }
+    }
+    .userVisualMap {
+        position: absolute;
+        left: pxTorem(32px);
+        top: pxTorem(66px); // border: 1px solid #00ff00;
+        p {
+            font-size: pxTorem(12px);
+        }
+        .smallTxt {
+            font-size: pxTorem(12px);
+            color: $color-yellow03;
+        }
+    }
 }
 
 .userData {
@@ -53,6 +128,77 @@
     background: url("./../img/user_line.png") right top no-repeat;
     background-size: 99.5% 100%;
     padding: pxTorem(10px);
+    position: relative;
+    .userDataTop {
+        position: absolute;
+        left: pxTorem(36px);
+        top: pxTorem(98px);
+        width: 93%;
+        .userDataTopTitle {
+            color: $color-yellow01;
+        }
+    }
+    .userDataTopTitle {
+        margin-bottom: 0;
+        &>div {
+            padding-bottom: 0;
+        }
+    }
+    .userDataTopContent {
+        .itemDiv {
+            width: 100%;
+            margin: pxTorem(5px) 0;
+            color: #9de9ff;
+            overflow: hidden;
+        }
+        .itemName {
+            overflow: hidden;
+            padding-right: pxTorem(10px);
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        .itemNumber {
+            text-indent: pxTorem(20px);
+        }
+        .itemProgress {
+            position: relative;
+        }
+        .ProgressBg {
+            width: 100%;
+            -moz-appearance: none;
+            -webkit-appearance: none;
+            border: 1px solid #11b8a2;
+            display: block;
+            height: 1rem;
+            overflow: hidden;
+            padding: 0;
+            border-radius: pxTorem(160px);
+            margin-top: pxTorem(3px);
+            position: absolute
+        }
+        .ProgressValue {
+            // width: 10%;
+            min-width: 1%;
+            -moz-appearance: none;
+            -webkit-appearance: none; // border: 1px solid #11b8a2;
+            background: #2eed8f;
+            display: block;
+            height: 1rem;
+            overflow: hidden;
+            padding: 0;
+            border-radius: pxTorem(160px);
+            margin-top: pxTorem(3px);
+            position: absolute
+        }
+    }
+}
+
+.ft24 {
+    font-size: pxTorem(24px);
+}
+
+.fn-pt20 {
+    text-indent: pxTorem(66px);
 }
 
 .footDiv {
@@ -62,4 +208,55 @@
     background: url("./../img/user_foot.png") left top no-repeat;
     background-size: 100% 100%;
     padding: pxTorem(10px);
+    .contentDiv {
+        height: 100%;
+        margin: 0;
+        .pTitle {
+            color: $color-yellow02;
+        }
+        .pContent {
+            height: calc(100% - 24px); // border: 1px solid #11b8a2;
+            overflow: hidden;
+        }
+    }
+}
+
+.myfootDiv {
+    width: 100%; // 
+    height: 33%;
+    margin-bottom: pxTorem(10px); // border: 1px solid $color-blue;
+    // padding: pxTorem(10px);
+    .contentDiv {
+        height: 100%;
+        margin: 0;
+        &>.column {
+            padding: pxTorem(10px) !important;
+        }
+        .pTitle {
+            color: $color-yellow02;
+        }
+        .pContent {
+            height: calc(100% - 24px); // border: 1px solid #11b8a2;
+            overflow: hidden;
+        }
+    }
+    .txtTip {
+        width: pxTorem(260px);
+    }
+    .bgLine04 {
+        background: url("./../img/user_line04.png") right top no-repeat;
+        background-size: 99.5% 100%;
+        overflow: hidden;
+        .pContent {
+            // height: 100%; // border: 1px solid #11b8a2;
+            overflow: hidden;
+            top: 5%;
+            width: 96%;
+        }
+    }
+}
+
+.bgLine03 {
+    background: url("./../img/user_line03.png") left top no-repeat;
+    background-size: 99.5% 100%;
 }
